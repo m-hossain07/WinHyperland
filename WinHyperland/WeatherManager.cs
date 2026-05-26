@@ -66,11 +66,15 @@ namespace WinHyperland
 
             try
             {
+                // Get temperature unit from settings
+                string unit = SettingsService.Instance.TemperatureUnit == "F" ? "fahrenheit" : "celsius";
+                
                 // Open-Meteo: completely free, no API key
                 string url = $"https://api.open-meteo.com/v1/forecast?" +
                     $"latitude={_latitude}&longitude={_longitude}" +
                     $"&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day" +
                     $"&daily=temperature_2m_max,temperature_2m_min" +
+                    $"&temperature_unit={unit}" +
                     $"&timezone=auto&forecast_days=1";
 
                 string json = await _httpClient.GetStringAsync(url);
@@ -119,19 +123,26 @@ namespace WinHyperland
         {
             try
             {
-                // Free IP-based geolocation (no API key)
-                string geoJson = await _httpClient.GetStringAsync("https://ipapi.co/json/");
+                // Free IP-based geolocation (no API key) - using ip-api.com which has higher rate limits
+                string geoJson = await _httpClient.GetStringAsync("http://ip-api.com/json/");
                 using var doc = JsonDocument.Parse(geoJson);
                 var root = doc.RootElement;
 
-                _latitude = root.GetProperty("latitude").GetDouble();
-                _longitude = root.GetProperty("longitude").GetDouble();
-                _cityName = root.GetProperty("city").GetString() ?? "Unknown";
-                _locationResolved = true;
+                if (root.GetProperty("status").GetString() == "success")
+                {
+                    _latitude = root.GetProperty("lat").GetDouble();
+                    _longitude = root.GetProperty("lon").GetDouble();
+                    _cityName = root.GetProperty("city").GetString() ?? "Unknown";
+                    _locationResolved = true;
+                }
+                else
+                {
+                    throw new Exception("IP Geolocation failed");
+                }
             }
             catch
             {
-                // Fallback: default to London
+                // Fallback: default to London if rate limited or offline
                 _latitude = 51.5074;
                 _longitude = -0.1278;
                 _cityName = "London";
