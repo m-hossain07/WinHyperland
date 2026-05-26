@@ -1,0 +1,21 @@
+<Project>
+  <!-- 
+    Override the MRT PRI generation targets that require Visual Studio's
+    Microsoft.Build.Packaging.Pri.Tasks.dll which is unavailable in
+    CLI-only (.NET SDK) builds. For unpackaged WinUI 3 apps this is safe
+    because PRI resource indexing is not required at runtime.
+  -->
+  <PropertyGroup>
+    <!-- Point PriProjTaskAssembly to a non-existent path that won't break UsingTask
+         loading when the task is never actually invoked -->
+    <_MrtCoreGeneratePriEnabled>false</_MrtCoreGeneratePriEnabled>
+  </PropertyGroup>
+
+  <!-- Override the ExpandPriContent-invoking targets to no-ops -->
+  <Target Name="_ExpandPriContent" />
+  <Target Name="_GenerateProjectPriFileCore" />
+  <Target Name="_GenerateProjectPriFileCoreAnyCPU" />
+  <Target Name="_GenerateProjectPriConfigFilePartA" />
+  <Target Name="_GenerateProjectPriConfigFilePartB" />
+  <Target Name="_MrtCoreGenerateProjectPriFile" />
+</Project>

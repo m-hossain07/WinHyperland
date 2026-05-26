@@ -1,0 +1,230 @@
+<UserControl x:Class="WinHyperland.AppearanceSettingsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Foreground="White">
+    <UserControl.Resources>
+        <Style x:Key="CardBorder" TargetType="Border">
+            <Setter Property="Background" Value="#99282830"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16"/>
+        </Style>
+        <Style x:Key="GroupTitle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI Variable Display, Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style x:Key="Separator" TargetType="Border">
+            <Setter Property="BorderThickness" Value="0,1,0,0"/>
+            <Setter Property="BorderBrush" Value="#80FFFFFF"/>
+            <Setter Property="Margin" Value="0,10,0,10"/>
+            <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+        <Style x:Key="SettingName" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI Variable Text, Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style x:Key="SettingDesc" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI Variable Text, Segoe UI"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="#88FFFFFF"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <!-- Card 1: Pill Color -->
+        <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
+            <StackPanel>
+                <TextBlock Text="Pill Color" Style="{StaticResource GroupTitle}"/>
+                <Border Style="{StaticResource Separator}"/>
+
+                <!-- Use custom color toggle -->
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="Use custom color" Style="{StaticResource SettingName}"/>
+                        
+                    </StackPanel>
+                    <CheckBox x:Name="ToggleCustomColor" Grid.Column="1"
+                              VerticalAlignment="Center"
+                              Checked="ToggleCustomColor_Changed"
+                              Unchecked="ToggleCustomColor_Changed"/>
+                </Grid>
+
+                <!-- Color picker area (visible when custom enabled) -->
+                <StackPanel x:Name="PillColorPanel" Visibility="Collapsed" Margin="0,8,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Pill color" Style="{StaticResource SettingName}"
+                                   VerticalAlignment="Center"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+                            <Border x:Name="PillColorPreview" Width="28" Height="28"
+                                    CornerRadius="4" Background="Black"
+                                    Margin="0,0,8,0" BorderThickness="1"
+                                    BorderBrush="#40FFFFFF"/>
+                            <TextBox x:Name="PillColorInput" Width="90"
+                                     Background="#40FFFFFF" Foreground="White"
+                                     FontFamily="Segoe UI Variable Text, Segoe UI"
+                                     FontSize="13" Padding="8,4"
+                                     LostFocus="PillColorInput_LostFocus"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Card 2: Keyline Tint -->
+        <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
+            <StackPanel>
+                <TextBlock Text="Keyline Tint" Style="{StaticResource GroupTitle}"/>
+                <Border Style="{StaticResource Separator}"/>
+
+                <!-- Enable keyline tint -->
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="Enable keyline tint" Style="{StaticResource SettingName}"/>
+                        
+                    </StackPanel>
+                    <CheckBox x:Name="ToggleKeylineTint" Grid.Column="1"
+                              VerticalAlignment="Center"
+                              Checked="ToggleKeylineTint_Changed"
+                              Unchecked="ToggleKeylineTint_Changed"/>
+                </Grid>
+
+                <!-- Color source combo (visible when tint enabled) -->
+                <Grid x:Name="KeylineSourceRow" Visibility="Collapsed" Margin="0,4,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Color source"
+                               Style="{StaticResource SettingName}"
+                               VerticalAlignment="Center"/>
+                    <ComboBox x:Name="KeylineSourceCombo" Grid.Column="1"
+                              FontFamily="Segoe UI Variable Text, Segoe UI"
+                              FontSize="13" MinWidth="180" Padding="8,4"
+                              SelectionChanged="KeylineSourceCombo_SelectionChanged">
+                        <ComboBoxItem Content="App Accent"/>
+                        <ComboBoxItem Content="System Accent"/>
+                        <ComboBoxItem Content="Custom Color"/>
+                    </ComboBox>
+                </Grid>
+
+                <!-- Custom tint color (visible when source=Custom) -->
+                <StackPanel x:Name="KeylineCustomColorPanel" Visibility="Collapsed"
+                            Margin="0,4,0,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Custom tint color" Style="{StaticResource SettingName}"
+                                   VerticalAlignment="Center"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+                            <Border x:Name="KeylineColorPreview" Width="28" Height="28"
+                                    CornerRadius="4" Background="#FF0078D7"
+                                    Margin="0,0,8,0" BorderThickness="1"
+                                    BorderBrush="#40FFFFFF"/>
+                            <TextBox x:Name="KeylineColorInput" Width="90"
+                                     Background="#40FFFFFF" Foreground="White"
+                                     FontFamily="Segoe UI Variable Text, Segoe UI"
+                                     FontSize="13" Padding="8,4"
+                                     LostFocus="KeylineColorInput_LostFocus"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Tint opacity slider -->
+                <Grid x:Name="KeylineOpacityRow" Visibility="Collapsed" Margin="0,4,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Tint opacity"
+                               Style="{StaticResource SettingName}"
+                               VerticalAlignment="Center"/>
+                    <Slider x:Name="KeylineOpacitySlider" Grid.Column="1"
+                            Minimum="0" Maximum="100" TickFrequency="1"
+                            IsSnapToTickEnabled="True"
+                            Width="160" VerticalAlignment="Center"
+                            Margin="0,0,8,0"
+                            ValueChanged="KeylineOpacitySlider_ValueChanged"/>
+                    <TextBlock x:Name="KeylineOpacityLabel" Grid.Column="2"
+                               Text="40%" Foreground="#CCFFFFFF"
+                               FontFamily="Segoe UI Variable Text, Segoe UI"
+                               FontSize="12" MinWidth="36"
+                               VerticalAlignment="Center"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+        
+        <!-- Card 3: Minimise Mode -->
+        <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
+            <StackPanel>
+                <TextBlock Text="Minimise Mode" Style="{StaticResource GroupTitle}"/>
+                <Border Style="{StaticResource Separator}"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="Use ultra-compact mini pill when idle" Style="{StaticResource SettingName}"/>
+                        
+                    </StackPanel>
+                    <CheckBox x:Name="ToggleMiniPill" Grid.Column="1"
+                              VerticalAlignment="Center"
+                              Checked="ToggleMiniPill_Changed"
+                              Unchecked="ToggleMiniPill_Changed"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Card 4: Pill Opacity When Idle -->
+        <Border Style="{StaticResource CardBorder}">
+            <StackPanel>
+                <TextBlock Text="Pill Opacity When Idle" Style="{StaticResource GroupTitle}"/>
+                <Border Style="{StaticResource Separator}"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="Idle opacity" Style="{StaticResource SettingName}"/>
+                        
+                    </StackPanel>
+                    <Slider x:Name="IdleOpacitySlider" Grid.Column="1"
+                            Minimum="40" Maximum="100" TickFrequency="1"
+                            IsSnapToTickEnabled="True"
+                            Width="160" VerticalAlignment="Center"
+                            Margin="0,0,8,0"
+                            ValueChanged="IdleOpacitySlider_ValueChanged"/>
+                    <TextBlock x:Name="IdleOpacityLabel" Grid.Column="2"
+                               Text="100%" Foreground="#CCFFFFFF"
+                               FontFamily="Segoe UI Variable Text, Segoe UI"
+                               FontSize="12" MinWidth="36"
+                               VerticalAlignment="Center"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,14 @@
+D:\Antigravity\CodeReducer\bin\Debug\net8.0\CodeReducer.exe
+D:\Antigravity\CodeReducer\bin\Debug\net8.0\CodeReducer.deps.json
+D:\Antigravity\CodeReducer\bin\Debug\net8.0\CodeReducer.runtimeconfig.json
+D:\Antigravity\CodeReducer\bin\Debug\net8.0\CodeReducer.dll
+D:\Antigravity\CodeReducer\bin\Debug\net8.0\CodeReducer.pdb
+D:\Antigravity\CodeReducer\obj\Debug\net8.0\CodeReducer.GeneratedMSBuildEditorConfig.editorconfig
+D:\Antigravity\CodeReducer\obj\Debug\net8.0\CodeReducer.AssemblyInfoInputs.cache
+D:\Antigravity\CodeReducer\obj\Debug\net8.0\CodeReducer.AssemblyInfo.cs
+D:\Antigravity\CodeReducer\obj\Debug\net8.0\CodeReducer.csproj.CoreCompileInputs.cache
+D:\Antigravity\CodeReducer\obj\Debug\net8.0\CodeReducer.dll
+D:\Antigravity\CodeReducer\obj\Debug\net8.0\refint\CodeReducer.dll
+D:\Antigravity\CodeReducer\obj\Debug\net8.0\CodeReducer.pdb
+D:\Antigravity\CodeReducer\obj\Debug\net8.0\CodeReducer.genruntimeconfig.cache
+D:\Antigravity\CodeReducer\obj\Debug\net8.0\ref\CodeReducer.dll

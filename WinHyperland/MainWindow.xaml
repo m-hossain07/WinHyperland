@@ -1,0 +1,435 @@
+<Window x:Class="WinHyperland.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WinHyperland"
+        AllowsTransparency="True" WindowStyle="None" Background="Transparent"
+        Topmost="True" ShowInTaskbar="False"
+        Width="440" Height="220"
+        Loaded="Window_Loaded">
+    <Grid Background="{x:Null}" Margin="0">
+        <!-- Keyline Border (accent tint ring) -->
+        <Border x:Name="KeylineBorder"
+                BorderThickness="1"
+                CornerRadius="18.5"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0,12,0,0">
+            <Border.BorderBrush>
+                <SolidColorBrush x:Name="KeylineBrush" Color="Transparent" />
+            </Border.BorderBrush>
+            <Border.Effect>
+                <DropShadowEffect x:Name="KeylineGlow" Color="Transparent" BlurRadius="8" ShadowDepth="0" Opacity="0.6"/>
+            </Border.Effect>
+
+            <!-- The Pill -->
+            <Border x:Name="HyperlandPill"
+                    Background="#FF000000"
+                    CornerRadius="18.5"
+                    Width="126" Height="37"
+                    ClipToBounds="True">
+                <Grid x:Name="PillContent">
+
+                    <!-- IdleView (empty) -->
+                    <Grid x:Name="IdleView" Visibility="Visible" />
+
+                    <!-- CompactView -->
+                    <Grid x:Name="CompactView" Visibility="Collapsed" Opacity="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Leading: Album art 26×26 circular, 8px from left -->
+                        <Border Grid.Column="0" Width="26" Height="26" CornerRadius="13"
+                                Margin="8,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                ClipToBounds="True">
+                            <Image x:Name="CompactAlbumArt" Stretch="UniformToFill"
+                                   Width="26" Height="26" />
+                        </Border>
+
+                        <StackPanel x:Name="WaveformContainer" Grid.Column="2" Orientation="Horizontal"
+                                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                                    Margin="0,0,8,0">
+                            <Rectangle x:Name="WaveBar1" Width="3" Height="4" Fill="White"
+                                       VerticalAlignment="Center" Margin="0,0,2,0" RadiusX="1.5" RadiusY="1.5"/>
+                            <Rectangle x:Name="WaveBar2" Width="3" Height="4" Fill="White"
+                                       VerticalAlignment="Center" Margin="0,0,2,0" RadiusX="1.5" RadiusY="1.5"/>
+                            <Rectangle x:Name="WaveBar3" Width="3" Height="4" Fill="White"
+                                       VerticalAlignment="Center" RadiusX="1.5" RadiusY="1.5"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- ExpandedView -->
+                    <Grid x:Name="ExpandedView" Visibility="Collapsed" Opacity="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>   <!-- Top row: Album Art + Info + Waveform -->
+                            <RowDefinition Height="Auto"/>   <!-- Middle row: Progress slider + time -->
+                            <RowDefinition Height="*"/>      <!-- Bottom row: Controls -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Top row: Album Art + Info + Waveform -->
+                        <Grid Grid.Row="0" Margin="16,16,16,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/> <!-- Album Art -->
+                                <ColumnDefinition Width="*"/>    <!-- Text & Waveform -->
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Album Art 52x52, CornerRadius 12 -->
+                            <Border Grid.Column="0" Width="52" Height="52" CornerRadius="12"
+                                    VerticalAlignment="Center" HorizontalAlignment="Left"
+                                    ClipToBounds="True" Background="#1AFFFFFF">
+                                <Image x:Name="ExpandedAlbumArt" Stretch="UniformToFill"
+                                       Width="52" Height="52" />
+                            </Border>
+
+                            <!-- Content area (Title, Artist, Waveform) -->
+                            <Grid Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>    <!-- Title/Artist -->
+                                    <ColumnDefinition Width="Auto"/> <!-- Waveform -->
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock x:Name="ExpandedTitleText" Text="Song Title"
+                                               FontFamily="Segoe UI Variable Display, Segoe UI"
+                                               FontSize="15" FontWeight="SemiBold" Foreground="White"
+                                               TextTrimming="CharacterEllipsis" MaxHeight="20"
+                                               TextWrapping="NoWrap" HorizontalAlignment="Left"/>
+                                    <TextBlock x:Name="ExpandedArtistText" Text="Artist Name"
+                                               FontFamily="Segoe UI Variable Text, Segoe UI"
+                                               FontSize="12" Foreground="#88FFFFFF"
+                                               TextTrimming="CharacterEllipsis" MaxHeight="18"
+                                               TextWrapping="NoWrap" HorizontalAlignment="Left"
+                                               Margin="0,2,0,0"/>
+                                </StackPanel>
+
+                                <!-- Equalizer-like waveform on the right -->
+                                <StackPanel x:Name="ExpandedWaveformContainer" Grid.Column="1" Orientation="Horizontal"
+                                            HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            Margin="8,0,0,0">
+                                    <Rectangle x:Name="ExpWaveBar1" Width="3" Height="4" Fill="#F0FFFFFF"
+                                               VerticalAlignment="Center" Margin="0,0,2,0" RadiusX="1.5" RadiusY="1.5"/>
+                                    <Rectangle x:Name="ExpWaveBar2" Width="3" Height="4" Fill="#F0FFFFFF"
+                                               VerticalAlignment="Center" Margin="0,0,2,0" RadiusX="1.5" RadiusY="1.5"/>
+                                    <Rectangle x:Name="ExpWaveBar3" Width="3" Height="4" Fill="#F0FFFFFF"
+                                               VerticalAlignment="Center" Margin="0,0,2,0" RadiusX="1.5" RadiusY="1.5"/>
+                                    <Rectangle x:Name="ExpWaveBar4" Width="3" Height="4" Fill="#F0FFFFFF"
+                                               VerticalAlignment="Center" Margin="0,0,2,0" RadiusX="1.5" RadiusY="1.5"/>
+                                    <Rectangle x:Name="ExpWaveBar5" Width="3" Height="4" Fill="#F0FFFFFF"
+                                               VerticalAlignment="Center" RadiusX="1.5" RadiusY="1.5"/>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+
+                        <!-- Middle row: Progress slider & time -->
+                        <Grid Grid.Row="1" Margin="16,8,16,0" VerticalAlignment="Center">
+                            <Grid.Resources>
+                                <Style TargetType="Slider">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="Focusable" Value="False"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Slider">
+                                                <Grid x:Name="GridRoot" Background="Transparent" Height="12">
+                                                    <Border x:Name="TrackBackground" 
+                                                            Background="#25FFFFFF" 
+                                                            Height="4" 
+                                                            CornerRadius="2" 
+                                                            VerticalAlignment="Center"/>
+                                                    <Track x:Name="PART_Track">
+                                                        <Track.DecreaseRepeatButton>
+                                                            <RepeatButton Command="{x:Static Slider.DecreaseLarge}">
+                                                                <RepeatButton.Template>
+                                                                    <ControlTemplate TargetType="RepeatButton">
+                                                                        <Border Background="#E6FFFFFF" Height="4" CornerRadius="2"/>
+                                                                    </ControlTemplate>
+                                                                </RepeatButton.Template>
+                                                            </RepeatButton>
+                                                        </Track.DecreaseRepeatButton>
+                                                        <Track.IncreaseRepeatButton>
+                                                            <RepeatButton Command="{x:Static Slider.IncreaseLarge}">
+                                                                <RepeatButton.Template>
+                                                                    <ControlTemplate TargetType="RepeatButton">
+                                                                        <Border Background="Transparent"/>
+                                                                    </ControlTemplate>
+                                                                </RepeatButton.Template>
+                                                            </RepeatButton>
+                                                        </Track.IncreaseRepeatButton>
+                                                        <Track.Thumb>
+                                                            <Thumb x:Name="SliderThumb" Width="8" Height="8" Focusable="False">
+                                                                    <Thumb.Template>
+                                                                        <ControlTemplate TargetType="Thumb">
+                                                                            <Ellipse Fill="White" Width="8" Height="8"/>
+                                                                        </ControlTemplate>
+                                                                    </Thumb.Template>
+                                                            </Thumb>
+                                                        </Track.Thumb>
+                                                    </Track>
+                                                </Grid>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="False">
+                                                        <Setter TargetName="SliderThumb" Property="Opacity" Value="0"/>
+                                                        <Setter TargetName="TrackBackground" Property="Height" Value="4"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="SliderThumb" Property="Opacity" Value="1"/>
+                                                        <Setter TargetName="TrackBackground" Property="Height" Value="6"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>    <!-- Progress Slider -->
+                                <ColumnDefinition Width="Auto"/> <!-- Time on Right -->
+                            </Grid.ColumnDefinitions>
+
+                            <Slider x:Name="ExpandedProgress" Grid.Column="0"
+                                    Minimum="0" Maximum="100" Value="0"
+                                    VerticalAlignment="Center" IsEnabled="True"/>
+
+                            <TextBlock x:Name="ExpandedTotal" Grid.Column="1" Text="00:00"
+                                       FontFamily="Segoe UI Variable Text, Segoe UI"
+                                       FontSize="11" Foreground="#88FFFFFF"
+                                       VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            
+                            <!-- Internal hidden field for code-behind bindings if necessary -->
+                            <TextBlock x:Name="ExpandedElapsed" Text="00:00" Visibility="Collapsed"/>
+                        </Grid>
+
+                        <!-- Bottom row: Controls -->
+                        <Grid Grid.Row="2" Margin="16,0,16,16" VerticalAlignment="Bottom">
+                            <Grid.Resources>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="Transparent" Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Opacity" Value="0.7"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>    <!-- Left: Shuffle -->
+                                <ColumnDefinition Width="Auto"/> <!-- Center: Media Controls -->
+                                <ColumnDefinition Width="*"/>    <!-- Right: Queue/List -->
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Shuffle Button -->
+                            <Button x:Name="ShuffleButton" Grid.Column="0"
+                                    FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                    Content="&#xE8B1;"
+                                    FontSize="16" Foreground="#88FFFFFF"
+                                    HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                            <!-- Center Media Controls -->
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button x:Name="PreviousButton"
+                                        FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                        Content="&#xE892;" Click="PreviousButton_Click"
+                                        FontSize="18" Padding="12,8,12,8" Margin="0,0,16,0"/>
+                                <Button x:Name="PlayPauseButton"
+                                        FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                        Content="&#xE768;" Click="PlayPauseButton_Click"
+                                        FontSize="26" Padding="12,8,12,8"/>
+                                <Button x:Name="NextButton"
+                                        FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                        Content="&#xE893;" Click="NextButton_Click"
+                                        FontSize="18" Padding="12,8,12,8" Margin="16,0,0,0"/>
+                            </StackPanel>
+
+                            <!-- Queue/List Button -->
+                            <Button x:Name="QueueButton" Grid.Column="2"
+                                    FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                    Content="&#xE370;"
+                                    FontSize="16" Foreground="#88FFFFFF"
+                                    HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Grid>
+
+                    <!-- WeatherCompactView -->
+                    <Grid x:Name="WeatherCompactView" Visibility="Collapsed" Opacity="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Weather icon -->
+                        <TextBlock x:Name="CompactWeatherIcon" Grid.Column="0"
+                                   FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                   Text="&#xE706;" FontSize="18" Foreground="#FFE8A317"
+                                   VerticalAlignment="Center" Margin="12,0,0,0"/>
+
+                        <!-- Temperature -->
+                        <TextBlock x:Name="CompactWeatherTemp" Grid.Column="2"
+                                   FontFamily="Segoe UI Variable Display, Segoe UI"
+                                   Text="--°" FontSize="14" FontWeight="SemiBold"
+                                   Foreground="White" VerticalAlignment="Center"
+                                   Margin="0,0,12,0"/>
+                    </Grid>
+
+                    <!-- WeatherExpandedView -->
+                    <Grid x:Name="WeatherExpandedView" Visibility="Collapsed" Opacity="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>   <!-- Top: Icon + Temp + City -->
+                            <RowDefinition Height="Auto"/>   <!-- Middle: Description + H/L -->
+                            <RowDefinition Height="*"/>      <!-- Bottom: Details row -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Top row: Weather icon + Temperature + City -->
+                        <Grid Grid.Row="0" Margin="16,16,16,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>  <!-- Icon -->
+                                <ColumnDefinition Width="Auto"/>  <!-- Temperature -->
+                                <ColumnDefinition Width="*"/>     <!-- City + Description -->
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Large weather icon -->
+                            <Border Grid.Column="0" Width="52" Height="52" CornerRadius="12"
+                                    Background="#1AFFFFFF" VerticalAlignment="Center">
+                                <TextBlock x:Name="ExpandedWeatherIcon"
+                                           FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                           Text="&#xE706;" FontSize="28" Foreground="#FFE8A317"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <!-- Temperature -->
+                            <TextBlock x:Name="ExpandedWeatherTemp" Grid.Column="1"
+                                       FontFamily="Segoe UI Variable Display, Segoe UI"
+                                       Text="--°" FontSize="32" FontWeight="Bold"
+                                       Foreground="White" VerticalAlignment="Center"
+                                       Margin="12,0,0,0"/>
+
+                            <!-- City + Description -->
+                            <StackPanel Grid.Column="2" Margin="12,0,0,0" VerticalAlignment="Center">
+                                <TextBlock x:Name="ExpandedWeatherCity" Text="Loading..."
+                                           FontFamily="Segoe UI Variable Display, Segoe UI"
+                                           FontSize="15" FontWeight="SemiBold" Foreground="White"/>
+                                <TextBlock x:Name="ExpandedWeatherDesc" Text=""
+                                           FontFamily="Segoe UI Variable Text, Segoe UI"
+                                           FontSize="12" Foreground="#88FFFFFF" Margin="0,2,0,0"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Middle row: High/Low -->
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="16,8,16,0">
+                            <TextBlock x:Name="ExpandedWeatherHighLow"
+                                       FontFamily="Segoe UI Variable Text, Segoe UI"
+                                       Text="H:--° L:--°" FontSize="12"
+                                       Foreground="#88FFFFFF" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- Bottom row: Detail chips -->
+                        <Grid Grid.Row="2" Margin="16,8,16,16" VerticalAlignment="Bottom">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Feels Like -->
+                            <Border Grid.Column="0" Background="#15FFFFFF" CornerRadius="8"
+                                    Padding="8,6" Margin="0,0,4,0">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <TextBlock Text="Feels Like"
+                                               FontFamily="Segoe UI Variable Text, Segoe UI"
+                                               FontSize="10" Foreground="#66FFFFFF"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="ExpandedWeatherFeelsLike" Text="--°"
+                                               FontFamily="Segoe UI Variable Display, Segoe UI"
+                                               FontSize="14" FontWeight="SemiBold" Foreground="White"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Humidity -->
+                            <Border Grid.Column="1" Background="#15FFFFFF" CornerRadius="8"
+                                    Padding="8,6" Margin="2,0,2,0">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <TextBlock Text="Humidity"
+                                               FontFamily="Segoe UI Variable Text, Segoe UI"
+                                               FontSize="10" Foreground="#66FFFFFF"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="ExpandedWeatherHumidity" Text="--%"
+                                               FontFamily="Segoe UI Variable Display, Segoe UI"
+                                               FontSize="14" FontWeight="SemiBold" Foreground="White"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Wind -->
+                            <Border Grid.Column="2" Background="#15FFFFFF" CornerRadius="8"
+                                    Padding="8,6" Margin="4,0,0,0">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <TextBlock Text="Wind"
+                                               FontFamily="Segoe UI Variable Text, Segoe UI"
+                                               FontSize="10" Foreground="#66FFFFFF"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="ExpandedWeatherWind" Text="-- km/h"
+                                               FontFamily="Segoe UI Variable Display, Segoe UI"
+                                               FontSize="14" FontWeight="SemiBold" Foreground="White"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Grid>
+
+                    <!-- NotificationView -->
+                    <Grid x:Name="NotificationView" Visibility="Collapsed" Opacity="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- App icon 32×32, rounded 8 -->
+                        <Border Grid.Column="0" Width="32" Height="32" CornerRadius="8"
+                                Margin="12,0,0,0" VerticalAlignment="Center"
+                                HorizontalAlignment="Left" ClipToBounds="True">
+                            <Image x:Name="NotificationIcon" Stretch="UniformToFill"
+                                   Width="32" Height="32"/>
+                        </Border>
+
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="12,0,12,0">
+                            <TextBlock x:Name="NotificationAppName" Text=""
+                                       FontFamily="Segoe UI Variable Display, Segoe UI"
+                                       FontSize="13" FontWeight="Bold" Foreground="White"/>
+                            <TextBlock x:Name="NotificationBody" Text=""
+                                       FontFamily="Segoe UI Variable Text, Segoe UI"
+                                       FontSize="12" Foreground="#BBFFFFFF"
+                                       TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"
+                                       MaxHeight="16"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- App Switching Dot Indicator (shows when multiple apps active) -->
+                    <StackPanel x:Name="AppSwitchDots" Orientation="Horizontal"
+                                HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                                Margin="0,0,0,4" Visibility="Collapsed">
+                        <Ellipse x:Name="Dot_Media" Width="5" Height="5"
+                                 Fill="#40FFFFFF" Margin="2,0"/>
+                        <Ellipse x:Name="Dot_Weather" Width="5" Height="5"
+                                 Fill="#40FFFFFF" Margin="2,0"/>
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</Window>

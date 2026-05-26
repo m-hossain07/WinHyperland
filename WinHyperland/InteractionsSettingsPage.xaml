@@ -1,0 +1,112 @@
+<UserControl x:Class="WinHyperland.InteractionsSettingsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Foreground="White">
+    <UserControl.Resources>
+        <Style x:Key="CardBorder" TargetType="Border">
+            <Setter Property="Background" Value="#99282830"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16"/>
+        </Style>
+        <Style x:Key="GroupTitle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI Variable Display, Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style x:Key="Separator" TargetType="Border">
+            <Setter Property="BorderThickness" Value="0,1,0,0"/>
+            <Setter Property="BorderBrush" Value="#80FFFFFF"/>
+            <Setter Property="Margin" Value="0,10,0,10"/>
+            <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+        <Style x:Key="SettingName" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI Variable Text, Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style x:Key="SettingDesc" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI Variable Text, Segoe UI"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="#88FFFFFF"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <!-- Card 1: Expand Behaviour -->
+        <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
+            <StackPanel>
+                <TextBlock Text="Expand Behaviour" Style="{StaticResource GroupTitle}"/>
+                <Border Style="{StaticResource Separator}"/>
+
+                <!-- Hover to expand -->
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="Hover to expand" Style="{StaticResource SettingName}"/>
+                        
+                    </StackPanel>
+                    <CheckBox x:Name="ToggleHoverExpand" Grid.Column="1"
+                              VerticalAlignment="Center"
+                              Checked="ToggleHoverExpand_Changed"
+                              Unchecked="ToggleHoverExpand_Changed"/>
+                </Grid>
+
+                <!-- Note when hover disabled -->
+                <Border x:Name="HoldNote" Visibility="Collapsed"
+                        Background="#20FFFFFF" CornerRadius="4" Padding="10,6"
+                        Margin="0,4,0,0">
+                    <TextBlock Text="Pill expands on click and hold (500ms)"
+                               FontSize="11" Foreground="#AAFFFFFF"
+                               FontFamily="Segoe UI Variable Text, Segoe UI"/>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Card 2: Click Behaviour -->
+        <Border Style="{StaticResource CardBorder}">
+            <StackPanel>
+                <TextBlock Text="Click Behaviour" Style="{StaticResource GroupTitle}"/>
+                <Border Style="{StaticResource Separator}"/>
+
+                <!-- Click to open source app -->
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="Click to open source app"
+                                   Style="{StaticResource SettingName}"/>
+                        
+                    </StackPanel>
+                    <CheckBox x:Name="ToggleClickOpen" Grid.Column="1"
+                              VerticalAlignment="Center"
+                              Checked="ToggleClickOpen_Changed"
+                              Unchecked="ToggleClickOpen_Changed"/>
+                </Grid>
+
+                <!-- Click outside to collapse -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="Click outside to collapse"
+                                   Style="{StaticResource SettingName}"/>
+                        
+                    </StackPanel>
+                    <CheckBox x:Name="ToggleClickOutside" Grid.Column="1"
+                              VerticalAlignment="Center"
+                              Checked="ToggleClickOutside_Changed"
+                              Unchecked="ToggleClickOutside_Changed"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>
