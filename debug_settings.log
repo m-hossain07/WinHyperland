@@ -396,3 +396,16 @@ Set ContentArea.Content to page of type PositionSettingsPage
 ApplyPositionSettings: Position=TopCenter, CustomX=0, VerticalOffset=0, TargetMonitor=Primary, screenDevice=\\.\DISPLAY1, calculated (Left=740, Top=-12)
 Selection changed: tag=Animations
 Set ContentArea.Content to page of type AnimationsSettingsPage
+ApplyPositionSettings: Position=TopCenter, CustomX=0, VerticalOffset=0, TargetMonitor=Primary, screenDevice=\\.\DISPLAY1, calculated (Left=740, Top=-12)
+Selection changed: tag=Position
+Set ContentArea.Content to page of type PositionSettingsPage
+ApplyPositionSettings: Position=TopCenter, CustomX=0, VerticalOffset=0, TargetMonitor=Primary, screenDevice=\\.\DISPLAY1, calculated (Left=740, Top=-12)
+Selection changed: tag=Animations
+Set ContentArea.Content to page of type AnimationsSettingsPage
+ApplyPositionSettings: Position=TopCenter, CustomX=0, VerticalOffset=0, TargetMonitor=Primary, screenDevice=\\.\DISPLAY1, calculated (Left=740, Top=-12)
+Selection changed: tag=Features
+Set ContentArea.Content to page of type FeaturesSettingsPage
+ApplyPositionSettings: Position=TopCenter, CustomX=0, VerticalOffset=0, TargetMonitor=Primary, screenDevice=\\.\DISPLAY1, calculated (Left=740, Top=-12)
+Selection changed: tag=Position
+Set ContentArea.Content to page of type PositionSettingsPage
+ApplyPositionSettings: Position=TopCenter, CustomX=0, VerticalOffset=0, TargetMonitor=Primary, screenDevice=\\.\DISPLAY1, calculated (Left=740, Top=-12)

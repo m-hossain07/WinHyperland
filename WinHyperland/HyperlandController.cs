@@ -398,8 +398,12 @@ namespace WinHyperland
                 }
                 else if (_currentState == HyperlandState.Expanded)
                 {
-                    // In expanded state, clicking the empty space of the pill opens the app
-                    if (_settings.ClickToOpenApp && _mediaActive && _lastMediaInfo?.SourceAppId is not null)
+                    if (_appManager.HasMultipleApps)
+                    {
+                        // Cycle between apps in expanded view too
+                        CycleApp();
+                    }
+                    else if (_settings.ClickToOpenApp && _mediaActive && _lastMediaInfo?.SourceAppId is not null)
                     {
                         try
                         {
@@ -411,16 +415,12 @@ namespace WinHyperland
                 }
                 else if (_currentState == HyperlandState.Notification)
                 {
-                    if (_settings.ClickToOpenApp && _lastNotifInfo?.PackageFamilyName is not null)
-                    {
-                        try
-                        {
-                            await Windows.System.Launcher.LaunchUriAsync(
-                                new Uri($"shell:AppsFolder\\{_lastNotifInfo.PackageFamilyName}!App"));
-                        }
-                        catch { }
-                    }
-                    TransitionTo(HyperlandState.Idle);
+                    // Click to dismiss notification — return to previous app state
+                    _notifTimer.Stop();
+                    if (_mediaActive || _appManager.IsActive(IslandApp.Weather))
+                        TransitionTo(HyperlandState.Compact);
+                    else
+                        TransitionTo(HyperlandState.Idle);
                 }
             };
 

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WinHyperland")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+703da3ab4732411b75f8106352f301ac18706f40")]
 [assembly: System.Reflection.AssemblyProductAttribute("WinHyperland")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WinHyperland")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
