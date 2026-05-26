@@ -6,6 +6,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Background="#FF1C1C1E"
+        Icon="pack://application:,,,/logo.ico"
         Loaded="Window_Loaded">
     <Window.Resources>
         <!-- Navigation item style -->

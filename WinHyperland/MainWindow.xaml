@@ -5,6 +5,7 @@
         AllowsTransparency="True" WindowStyle="None" Background="Transparent"
         Topmost="True" ShowInTaskbar="False"
         Width="440" Height="220"
+        Icon="pack://application:,,,/logo.ico"
         Loaded="Window_Loaded">
     <Grid Background="{x:Null}" Margin="0">
         <!-- Keyline Border (accent tint ring) -->
