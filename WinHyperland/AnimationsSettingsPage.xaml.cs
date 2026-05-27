@@ -6,7 +6,7 @@ using System.Windows.Media.Animation;
 using UserControl = System.Windows.Controls.UserControl;
 using RadioButton = System.Windows.Controls.RadioButton;
 
-namespace WinHyperland
+namespace WinHyperisland
 {
     public partial class AnimationsSettingsPage : UserControl
     {

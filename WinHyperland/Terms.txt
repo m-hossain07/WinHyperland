@@ -1,4 +1,4 @@
-WinHyperland End User License Agreement
+WinHyperisland End User License Agreement
 
 By installing this software, you agree to the following terms:
 
@@ -6,4 +6,4 @@ By installing this software, you agree to the following terms:
 2. The software is provided "as is", without warranty of any kind.
 3. The authors or copyright holders shall not be liable for any claim, damages or other liability.
 
-Enjoy using WinHyperland!
+Enjoy using WinHyperisland!

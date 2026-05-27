@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Threading;
 
-namespace WinHyperland
+namespace WinHyperisland
 {
     public partial class MainWindow : Window
     {
@@ -40,9 +40,9 @@ namespace WinHyperland
         private SettingsService? _settings;
         private IntPtr _hwnd;
         private DispatcherTimer? _topmostTimer;
-        private HyperlandController? _controller;
+        private HyperislandController? _controller;
 
-        public HyperlandController? Controller
+        public HyperislandController? Controller
         {
             get => _controller;
             set => _controller = value;
@@ -63,9 +63,9 @@ namespace WinHyperland
         {
             if (_controller != null && _settings != null && _settings.ClickOutsideToCollapse)
             {
-                if (_controller.CurrentState == HyperlandState.Expanded)
+                if (_controller.CurrentState == HyperislandState.Expanded)
                 {
-                    _controller.TransitionTo(_controller.MediaActive ? HyperlandState.Compact : HyperlandState.Idle);
+                    _controller.TransitionTo(_controller.MediaActive ? HyperislandState.Compact : HyperislandState.Idle);
                 }
             }
         }
@@ -208,10 +208,10 @@ namespace WinHyperland
 
                 var pillRect = GetPillScreenRect();
                 if (!pillRect.Contains(new System.Windows.Point(x, y)) &&
-                    _controller.CurrentState == HyperlandState.Expanded)
+                    _controller.CurrentState == HyperislandState.Expanded)
                 {
                     Dispatcher.BeginInvoke(() =>
-                        _controller.TransitionTo(HyperlandState.Compact));
+                        _controller.TransitionTo(HyperislandState.Compact));
                 }
             }
 
@@ -223,9 +223,9 @@ namespace WinHyperland
         {
             try
             {
-                var transform = HyperlandPill.TransformToAncestor(this);
+                var transform = HyperislandPill.TransformToAncestor(this);
                 var pillTopLeft = transform.Transform(new System.Windows.Point(0, 0));
-                var pillSize = new System.Windows.Size(HyperlandPill.ActualWidth, HyperlandPill.ActualHeight);
+                var pillSize = new System.Windows.Size(HyperislandPill.ActualWidth, HyperislandPill.ActualHeight);
 
                 // Convert WPF coordinates to screen (handles DPI)
                 var source = PresentationSource.FromVisual(this);

@@ -1,7 +1,7 @@
-<Window x:Class="WinHyperland.MainWindow"
+<Window x:Class="WinHyperisland.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="WinHyperland"
+        Title="WinHyperisland"
         AllowsTransparency="True" WindowStyle="None" Background="Transparent"
         Topmost="True" ShowInTaskbar="False"
         Width="440" Height="220"
@@ -23,7 +23,7 @@
             </Border.Effect>
 
             <!-- The Pill -->
-            <Border x:Name="HyperlandPill"
+            <Border x:Name="HyperislandPill"
                     Background="#FF000000"
                     CornerRadius="18.5"
                     Width="126" Height="37"

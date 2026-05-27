@@ -1,0 +1,19 @@
+# Build outputs
+bin/
+obj/
+Publish/
+
+# IDE
+.vs/
+*.user
+*.suo
+
+# Temp/logs
+*.log
+output.txt
+all_files.txt
+error.log
+
+# Python cache
+__pycache__/
+*.pyc

@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows.Media;
 
-namespace WinHyperland
+namespace WinHyperisland
 {
     // ─── Enums ─────────────────────────────────────────────
 
@@ -82,7 +82,7 @@ namespace WinHyperland
     public sealed class SettingsService
     {
         private static readonly string SettingsFolder =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "WinHyperland");
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "WinHyperisland");
         private static readonly string SettingsFile =
             Path.Combine(SettingsFolder, "settings.json");
 

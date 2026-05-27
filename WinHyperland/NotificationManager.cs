@@ -6,7 +6,7 @@ using System.Windows.Media.Imaging;
 using Windows.UI.Notifications;
 using Windows.UI.Notifications.Management;
 
-namespace WinHyperland
+namespace WinHyperisland
 {
     public record NotificationInfo(
         string AppName,

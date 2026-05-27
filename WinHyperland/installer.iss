@@ -3,26 +3,26 @@
 #endif
 
 [Setup]
-AppName=WinHyperland
+AppName=WinHyperisland
 AppVersion=1.0
-DefaultDirName={autopf}\WinHyperland
-DefaultGroupName=WinHyperland
-UninstallDisplayIcon={app}\WinHyperland.exe
+DefaultDirName={autopf}\WinHyperisland
+DefaultGroupName=WinHyperisland
+UninstallDisplayIcon={app}\WinHyperisland.exe
 Compression=lzma2
 SolidCompression=yes
 OutputDir=.\Publish
-OutputBaseFilename=WinHyperland_Setup_{#Arch}
+OutputBaseFilename=WinHyperisland_Setup_{#Arch}
 LicenseFile=Terms.txt
 SetupIconFile=logo.ico
 PrivilegesRequired=admin
 
 [Files]
-Source: "Publish\{#Arch}\WinHyperland.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Publish\{#Arch}\WinHyperisland.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "logo.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
-Name: "{group}\WinHyperland"; Filename: "{app}\WinHyperland.exe"; IconFilename: "{app}\logo.ico"
-Name: "{userdesktop}\WinHyperland"; Filename: "{app}\WinHyperland.exe"; IconFilename: "{app}\logo.ico"
+Name: "{group}\WinHyperisland"; Filename: "{app}\WinHyperisland.exe"; IconFilename: "{app}\logo.ico"
+Name: "{userdesktop}\WinHyperisland"; Filename: "{app}\WinHyperisland.exe"; IconFilename: "{app}\logo.ico"
 
 [Run]
-Filename: "{app}\WinHyperland.exe"; Description: "Launch WinHyperland"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\WinHyperisland.exe"; Description: "Launch WinHyperisland"; Flags: nowait postinstall skipifsilent

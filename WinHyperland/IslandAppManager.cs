@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WinHyperland
+namespace WinHyperisland
 {
     /// <summary>
     /// Identifies the type of "app" currently running in the Dynamic Island.

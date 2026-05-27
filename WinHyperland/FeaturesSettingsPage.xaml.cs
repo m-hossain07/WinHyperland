@@ -4,15 +4,15 @@ using System.Windows.Controls;
 using Microsoft.Win32;
 using UserControl = System.Windows.Controls.UserControl;
 
-namespace WinHyperland
+namespace WinHyperisland
 {
     public partial class FeaturesSettingsPage : UserControl
     {
         private readonly SettingsService _settings;
-        private readonly HyperlandController? _controller;
+        private readonly HyperislandController? _controller;
         private bool _isLoading;
 
-        public FeaturesSettingsPage(SettingsService settings, HyperlandController? controller = null)
+        public FeaturesSettingsPage(SettingsService settings, HyperislandController? controller = null)
         {
             InitializeComponent();
             _settings = settings;
@@ -72,11 +72,11 @@ namespace WinHyperland
                     {
                         string exePath = System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName ?? "";
                         if (!string.IsNullOrEmpty(exePath))
-                            key.SetValue("WinHyperland", $"\"{exePath}\"");
+                            key.SetValue("WinHyperisland", $"\"{exePath}\"");
                     }
                     else
                     {
-                        key.DeleteValue("WinHyperland", false);
+                        key.DeleteValue("WinHyperisland", false);
                     }
                 }
             }
@@ -155,7 +155,7 @@ namespace WinHyperland
             if (_controller == null) return;
 
             var mock = new NotificationInfo(
-                AppName: "Win Hyperland",
+                AppName: "Win Hyperisland",
                 Title: "Test notification",
                 Body: "Notification pipeline is working",
                 Icon: null,

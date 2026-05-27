@@ -2,12 +2,12 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WinHyperland
+namespace WinHyperisland
 {
     public partial class SettingsWindow : Window
     {
         private readonly SettingsService _settings;
-        private readonly HyperlandController? _controller;
+        private readonly HyperislandController? _controller;
 
         // Lazy-created pages
         private PositionSettingsPage? _positionPage;
@@ -17,7 +17,7 @@ namespace WinHyperland
         private InteractionsSettingsPage? _interactionsPage;
         private ExclusionsSettingsPage? _exclusionsPage;
 
-        public SettingsWindow(SettingsService settings, HyperlandController? controller = null)
+        public SettingsWindow(SettingsService settings, HyperislandController? controller = null)
         {
             InitializeComponent();
             _settings = settings;

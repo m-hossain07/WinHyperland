@@ -1,3 +1,0 @@
-D:\Antigravity\WinHyperland\Publish\arm64\WinHyperland.pdb
-D:\Antigravity\WinHyperland\Publish\arm64\logo.ico
-D:\Antigravity\WinHyperland\Publish\arm64\WinHyperland.exe

@@ -4,7 +4,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
-namespace WinHyperland
+namespace WinHyperisland
 {
     public class WeatherInfo
     {
@@ -27,6 +27,7 @@ namespace WinHyperland
         private readonly Dispatcher _dispatcher;
         private readonly HttpClient _httpClient = new();
         private readonly DispatcherTimer _refreshTimer;
+        private readonly SettingsService _settings;
 
         private double _latitude;
         private double _longitude;
@@ -36,9 +37,10 @@ namespace WinHyperland
         public event Action<WeatherInfo>? OnWeatherUpdated;
         public event Action? OnWeatherError;
 
-        public WeatherManager(Dispatcher dispatcher)
+        public WeatherManager(Dispatcher dispatcher, SettingsService settings)
         {
             _dispatcher = dispatcher;
+            _settings = settings;
             _refreshTimer = new DispatcherTimer(DispatcherPriority.Background, dispatcher)
             {
                 Interval = TimeSpan.FromMinutes(15)
@@ -67,7 +69,7 @@ namespace WinHyperland
             try
             {
                 // Get temperature unit from settings
-                string unit = SettingsService.Instance.TemperatureUnit == "F" ? "fahrenheit" : "celsius";
+                string unit = _settings.TemperatureUnit == "F" ? "fahrenheit" : "celsius";
                 
                 // Open-Meteo: completely free, no API key
                 string url = $"https://api.open-meteo.com/v1/forecast?" +

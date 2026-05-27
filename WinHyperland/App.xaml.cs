@@ -4,14 +4,14 @@ using System.IO;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace WinHyperland
+namespace WinHyperisland
 {
     public partial class App : System.Windows.Application
     {
         private MediaManager? _mediaManager;
         private NotificationManager? _notifManager;
         private WeatherManager? _weatherManager;
-        private HyperlandController? _controller;
+        private HyperislandController? _controller;
         private static SettingsService? _settingsService;
 
         private static SettingsWindow? _settingsWindow;
@@ -29,13 +29,13 @@ namespace WinHyperland
 
             _mediaManager = new MediaManager(dispatcher);
             _notifManager = new NotificationManager(dispatcher);
-            _weatherManager = new WeatherManager(dispatcher);
+            _weatherManager = new WeatherManager(dispatcher, _settingsService);
 
             await _mediaManager.InitializeAsync();
             await _notifManager.InitializeAsync();
 
             var window = new MainWindow(_settingsService);
-            _controller = new HyperlandController(window, _mediaManager, _settingsService);
+            _controller = new HyperislandController(window, _mediaManager, _settingsService);
             window.Controller = _controller;
 
             // Wire notification events
@@ -82,7 +82,7 @@ namespace WinHyperland
 
             _trayIcon = new System.Windows.Forms.NotifyIcon
             {
-                Text = "Win Hyperland",
+                Text = "Win Hyperisland",
                 ContextMenuStrip = contextMenu,
                 Visible = true,
             };

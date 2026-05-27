@@ -7,7 +7,7 @@ using Color = System.Windows.Media.Color;
 using ColorConverter = System.Windows.Media.ColorConverter;
 using Brushes = System.Windows.Media.Brushes;
 
-namespace WinHyperland
+namespace WinHyperisland
 {
     public partial class AppearanceSettingsPage : UserControl
     {

@@ -8,7 +8,7 @@ using Orientation = System.Windows.Controls.Orientation;
 using HorizontalAlignment = System.Windows.HorizontalAlignment;
 using VerticalAlignment = System.Windows.VerticalAlignment;
 
-namespace WinHyperland
+namespace WinHyperisland
 {
     public partial class ExclusionsSettingsPage : UserControl
     {

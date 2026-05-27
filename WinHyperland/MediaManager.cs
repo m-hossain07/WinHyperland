@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 using Windows.Media.Control;
 using Windows.Storage.Streams;
 
-namespace WinHyperland
+namespace WinHyperisland
 {
     public sealed class MediaManager : IDisposable
     {
